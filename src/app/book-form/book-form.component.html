@@ -1,0 +1,22 @@
+<h3>Add a new book</h3>
+
+<form [formGroup]="bookForm" (ngSubmit)="onSubmit(bookForm.value)">
+
+    <div>
+        <label for="title">Title: </label>
+        <input id="title" type="text" formControlName="title">
+    </div>
+
+    <div>
+        <label for="author">Author: </label>
+        <input id="author" type="text" formControlName="author">
+    </div>
+
+    <div>
+        <label for="dateAdded">Date Added: </label>
+        <input id="dateAdded" type="text" formControlName="dateAdded">
+    </div>
+
+    <button type="submit">Add</button>
+    
+</form>

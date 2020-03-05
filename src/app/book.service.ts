@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {catchError} from 'rxjs/operator';
+import { Book } from './book-list/Book';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,33 +13,28 @@ export class BookService {
 
   constructor(private http: HttpClient) { }
 
-  getAllBooks() : Observable<any>{
-    return this.http.get(this.apiUrl)
+  getAllBooks() : Observable<Book[]>{
+    const httpOptions = {
+      headers:  new HttpHeaders({
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    return this.http.get<Book[]>(this.apiUrl,httpOptions)
   }
   
 
-  sendBook(book) : Observable<any>{
+  sendBook(book: Book) : Observable<any>{
 
     const httpOptions = {
       headers:  new HttpHeaders({
         'Content-Type':  'application/json',
+        'Access-Control-Allow-Origin': '*'
       })
     };
 
     console.log('post init')
     console.log (book)
-    return this.http
-    .post(this.apiUrl,book,httpOptions)
-  }
-
-  private handleError(error: HttpErrorResponse){
-    if(error instanceof ErrorEvent){
-      console.error('An error occurred:', error.error.message)
-    }else{
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    }
+    return this.http.post<Book>(this.apiUrl,book,httpOptions)
   }
 }

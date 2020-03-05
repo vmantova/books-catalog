@@ -19,7 +19,7 @@ export class BookFormComponent implements OnInit {
     .group({
       title: '',
       author: '',
-      dateAdded: 'teste',
+      dateAdded: '',
     });
    }
 
@@ -27,8 +27,9 @@ export class BookFormComponent implements OnInit {
   }
 
   onSubmit(data): any{
-    
-    //send data to server;
+
+     //send data to server;
+     this.bookService.sendBook(data).subscribe();
     this.bookForm.reset()
   }
 
